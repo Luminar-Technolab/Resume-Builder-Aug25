@@ -521,4 +521,5 @@
             2. All component needed for Setup path should be inside 'Routes' component
             3. Using Route component Setup path for react app component, all Route should be inside Routes. Using 'path' & 'element' attribute of Route set up path for component, it should in App.jsx file
         - Link component is used to redirect fromone component to another, use 'to' attribute
+        - Dynamic Routes : are parameter changes in a url , to set up dynamic route use a variable prefix with column in path, 
  
