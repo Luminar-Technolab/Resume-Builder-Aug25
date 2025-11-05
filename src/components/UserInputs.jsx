@@ -7,11 +7,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { TextField } from '@mui/material';
 import { FaXmark } from "react-icons/fa6";
+import { addResumeAPI } from '../services/allAPI';
+import { useNavigate } from 'react-router-dom';
 
 const steps = ['Basic Informations','Contact Details','Educational Details','Work Experience','Skills & Certifications','Review & Submit'];
 
 function UserInputs({resumeDatails,setResumeDetails}) {
   
+  const navigate = useNavigate()
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
 
@@ -22,6 +25,42 @@ function UserInputs({resumeDatails,setResumeDetails}) {
 
   console.log(resumeDatails);
   
+
+
+  const handleAddResume = async ()=>{
+    const {fullName,jobTitle,location} = resumeDatails
+    if(!fullName || !jobTitle || !location){
+      alert("Please fill the form completely!!!")
+    }else{
+      console.log("api call");
+      try{
+        const result = await addResumeAPI(resumeDatails)
+        console.log(result);
+        if(result.status==201){
+          alert("Resume added Successfully!!!")
+          const {id} = result.data
+          //navigate to view page : resume/:id/view
+          navigate(`/resume/${id}/view`)
+        }
+      }catch(err){
+        console.log(err);        
+      }
+    }
+  }
+
+   const addSkill = (skill)=>{
+    if(resumeDatails.skills?.map(data=>data.toLowerCase())?.includes(skill.toLowerCase())){
+      alert("Given Skill is already available. Please add another!!!")
+    }else{
+      setResumeDetails({...resumeDatails,skills:[...resumeDatails.skills,skill]})
+    }
+    skillRef.current.value = ""
+  }
+
+  const removeSkill = (skill)=>{
+    setResumeDetails({...resumeDatails,skills:resumeDatails.skills?.filter(item=>item!=skill)})
+  }
+
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -64,19 +103,6 @@ function UserInputs({resumeDatails,setResumeDetails}) {
   const handleReset = () => {
     setActiveStep(0);
   };
-
-  const addSkill = (skill)=>{
-    if(resumeDatails.skills?.map(data=>data.toLowerCase())?.includes(skill.toLowerCase())){
-      alert("Given Skill is already available. Please add another!!!")
-    }else{
-      setResumeDetails({...resumeDatails,skills:[...resumeDatails.skills,skill]})
-    }
-    skillRef.current.value = ""
-  }
-
-  const removeSkill = (skill)=>{
-    setResumeDetails({...resumeDatails,skills:resumeDatails.skills?.filter(item=>item!=skill)})
-  }
 
   const renderStepContent = (stepCount)=>{
     switch(stepCount){
@@ -216,9 +242,12 @@ function UserInputs({resumeDatails,setResumeDetails}) {
                 Skip
               </Button>
             )}
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-            </Button>
+            {
+            activeStep === steps.length - 1 ? 
+            <Button onClick={handleAddResume}> Finish </Button>  : 
+            <Button onClick={handleNext}> Next </Button>
+            }
+            
           </Box>
         </React.Fragment>
       )}

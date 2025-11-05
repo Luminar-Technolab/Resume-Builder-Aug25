@@ -10,9 +10,9 @@ function Preview({resumeDatails}) {
           <h5>{resumeDatails?.jobTitle}</h5>
           <p><span>{resumeDatails?.location}</span> | <span>{resumeDatails?.email}</span> | <span>{resumeDatails?.phone}</span></p>
           <p>
-            <a href={resumeDatails?.github} target='_blank' className='me-1'>GITHUB</a> |
-            <a href={resumeDatails?.linkedin} target='_blank' className='mx-1'>LINKEDIN</a> |
-            <a href={resumeDatails?.portfolio} target='_blank' className='ms-1'>PORTFOLIO</a> 
+            <a href={resumeDatails?.github} target='_blank' className='me-1'>{resumeDatails?.github}</a> |
+            <a href={resumeDatails?.linkedin} target='_blank' className='mx-1'>{resumeDatails?.linkedin}</a> |
+            <a href={resumeDatails?.portfolio} target='_blank' className='ms-1'>{resumeDatails?.portfolio}</a> 
           </p>
           <Divider sx={{fontSize:'25px'}}>Summary</Divider>
           <p style={{textAlign:'justify'}}>{resumeDatails?.summary}</p>
