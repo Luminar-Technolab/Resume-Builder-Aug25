@@ -511,6 +511,7 @@
                 - if dependencies is an empty array : side effects function will execute only at the creation of component
                 - if dependencies is an array with props/state/variable : side effects function will execute not only at the creation of component but alson when values (props/state/variable) changes in the array
             - useNavigate(): return a function which capable of redirection
+            - useParams() : return an object which consist of dynamic values in the url
         - Custom Hooks : create js file use filename startWith 'use' keyword and give js function it must has return Statements and export the function
     13. Handling List/Array in React : using map method,  array can be displayed in jsx. To identify duplicated jsx element by component using its 'key' attribute
     14. Handling Forms in React : Managing data input using a form.
@@ -524,6 +525,7 @@
         - Link component is used to redirect fromone component to another, use 'to' attribute
         - Dynamic Routes : are parameter changes in a url , to set up dynamic route use a variable prefix with column in path, 
         - useNavigate() : used to redirect from one page to another
+        - useParams() : used to get path parameter from a url
     16. API Call in React
         - fetch()
         - Using Axios library : to install - npm i axios
